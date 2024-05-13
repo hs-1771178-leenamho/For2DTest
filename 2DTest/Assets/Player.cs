@@ -52,13 +52,10 @@ public class Player : Chacter
     {
         Vector2 playerPos = this.transform.position;
         Vector2 dir = pos - playerPos;
-        dir.Normalize();
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
 
-        float angle = Vector2.Dot(dir, Vector2.right);
-
-        Transform b = Instantiate(bullet, firePos);
-        b.SetParent(null);
-        b.Rotate(Vector2.up * angle);
+        firePos.rotation = Quaternion.Euler(0, 0, angle);
+        Transform b = Instantiate(bullet, firePos.position, firePos.rotation);
     }
 
 }

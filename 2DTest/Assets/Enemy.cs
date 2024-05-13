@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : Chacter
 {
     public Transform bullet;
+    public Transform pos;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,7 @@ public class Enemy : Chacter
     {
         while (true)
         {
-            Transform b = Instantiate(bullet, this.transform);
+            Transform b = Instantiate(bullet, pos.transform.position, transform.rotation);
             b.SetParent(null);
             yield return new WaitForSeconds(2.5f);
         }
