@@ -30,19 +30,19 @@ public class Player : Chacter
 
     private void Move()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W))
         {
             this.gameObject.transform.Translate(Vector2.up * Time.deltaTime * 5f);
         }
-        if (Input.GetKey(KeyCode.DownArrow))
+        if (Input.GetKey(KeyCode.S))
         {
             this.gameObject.transform.Translate(Vector2.down * Time.deltaTime * 5f);
         }
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A))
         {
             this.gameObject.transform.Translate(Vector2.left * Time.deltaTime * 5f);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.D))
         {
             this.gameObject.transform.Translate(Vector2.right * Time.deltaTime * 5f);
         }
