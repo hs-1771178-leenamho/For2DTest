@@ -18,7 +18,6 @@ public class Player : Chacter
     // Update is called once per frame
     void Update()
     {
-        
         if (Input.GetMouseButtonDown(0))
         {
             mousePos = Input.mousePosition;
@@ -62,5 +61,7 @@ public class Player : Chacter
         firePos.rotation = Quaternion.Euler(0, 0, angle);
         Transform b = Instantiate(bullet, firePos.position, firePos.rotation);
     }
+
+    
 
 }

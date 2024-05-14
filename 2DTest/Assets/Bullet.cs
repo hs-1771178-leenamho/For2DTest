@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public LayerMask layerMask;
-
+    public float force;
     // Update is called once per frame
     void Update()
     {
@@ -18,8 +18,14 @@ public class Bullet : MonoBehaviour
         {
             Debug.Log(collision.gameObject.name + " hit!");
             Chacter character = collision.gameObject.GetComponent<Chacter>();
-            character.TakeDamage();
+            character.TakeDamage(transform.right, force);
+
             Destroy(this.gameObject);
+
+            
         }
     }
+
+    
+
 }
