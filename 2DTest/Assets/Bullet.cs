@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.gameObject.transform.Translate(Vector2.right * Time.deltaTime * 3f);
+        this.gameObject.transform.Translate(Vector2.right * Time.deltaTime * 9f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

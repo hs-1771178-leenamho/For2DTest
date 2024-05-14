@@ -18,7 +18,7 @@ public class Player : Chacter
     // Update is called once per frame
     void Update()
     {
-        Move();
+        
         if (Input.GetMouseButtonDown(0))
         {
             mousePos = Input.mousePosition;
@@ -28,23 +28,28 @@ public class Player : Chacter
         }
     }
 
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
     private void Move()
     {
         if (Input.GetKey(KeyCode.W))
         {
-            this.gameObject.transform.Translate(Vector2.up * Time.deltaTime * 5f);
+            this.gameObject.transform.Translate(Vector2.up * Time.fixedDeltaTime * 5f);
         }
         if (Input.GetKey(KeyCode.S))
         {
-            this.gameObject.transform.Translate(Vector2.down * Time.deltaTime * 5f);
+            this.gameObject.transform.Translate(Vector2.down * Time.fixedDeltaTime * 5f);
         }
         if (Input.GetKey(KeyCode.A))
         {
-            this.gameObject.transform.Translate(Vector2.left * Time.deltaTime * 5f);
+            this.gameObject.transform.Translate(Vector2.left * Time.fixedDeltaTime * 5f);
         }
         if (Input.GetKey(KeyCode.D))
         {
-            this.gameObject.transform.Translate(Vector2.right * Time.deltaTime * 5f);
+            this.gameObject.transform.Translate(Vector2.right * Time.fixedDeltaTime * 5f);
         }
     }
 
