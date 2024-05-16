@@ -1,30 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : Chacter
 {
-    public Transform target;
-    public Transform bullet;
-    public Transform pos;
-    // Start is called before the first frame update
+    public Transform Target;
+    public int maxHealth = 100;
+    private int currentHealth;
+
+    // 적이 죽었을 때 알릴 이벤트
+    public UnityEvent<GameObject> onEnemyDeath;
+
     void Start()
     {
-        StartCoroutine(FireBullet());
+        currentHealth = maxHealth;
     }
 
-    IEnumerator FireBullet()
+    private void Update()
     {
-        while (true)
-        {
-            float fireTime = Random.Range(1f, 2.5f);
-            Vector2 dir = pos.position - target.position;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Vector2 dir = transform.position - Target.position;
+        dir.Normalize();
 
-            pos.rotation = Quaternion.Euler(0, 0, angle + 180f);
-            Transform b = Instantiate(bullet, pos.transform.position, pos.transform.rotation);
-            b.SetParent(null);
-            yield return new WaitForSeconds(fireTime);
+        transform.Translate(-dir * 2f * Time.deltaTime);
+    }
+
+    public void TakeDamage(int amount)
+    {
+        currentHealth -= amount;
+        StartCoroutine(DamaginEffect());
+        if (currentHealth <= 0)
+        {
+            Die();
         }
+    }
+
+    void Die()
+    {
+        // 적이 죽었을 때 터렛에게 알림
+        onEnemyDeath?.Invoke(gameObject);
+        Destroy(gameObject);
+    }
+
+    IEnumerator DamaginEffect()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = Color.white;
     }
 }

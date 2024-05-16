@@ -5,6 +5,11 @@ using UnityEngine;
 public class Chacter : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer;
+
+    private void Start()
+    {
+        //spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
     public void TakeDamage(Vector2 dir, float force)
     {
         StartCoroutine(DamaginEffect(dir, force));
