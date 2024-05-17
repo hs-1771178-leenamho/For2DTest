@@ -9,7 +9,6 @@ public class TowerPerception : MonoBehaviour
     public LayerMask enemyMask;
     public UnityEvent<GameObject> detectEnemyAct;
     public UnityEvent<GameObject> lostEnemyAct;
-
     private List<GameObject> detectedEnemies = new List<GameObject>();
 
     private void OnTriggerEnter2D(Collider2D other)
