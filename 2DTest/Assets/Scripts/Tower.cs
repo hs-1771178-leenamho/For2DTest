@@ -8,11 +8,11 @@ public class Tower : CraftBuilding
     public TowerAttackType towerAttackType;
     public TowerPerception perception;
     public float towerAttackCooldown = 1f; // 공격 쿨타임
-    public int damage = 10; // 타워의 공격력
+    public float damage = 10f; // 타워의 공격력
 
     private float towerAttackTimer = 0f; // 공격 타이머
 
-    void Start()
+    void OnEnable()
     {
         perception = GetComponentInChildren<TowerPerception>();
         perception.detectEnemyAct.AddListener(OnEnemyDetected);
@@ -21,6 +21,7 @@ public class Tower : CraftBuilding
 
     void Update()
     {
+        //if (this.buildingState != BuildingState.BuildComplete) return;
         towerAttackTimer -= Time.deltaTime;
 
         if (towerAttackTimer <= 0f)
@@ -37,10 +38,10 @@ public class Tower : CraftBuilding
 
     void OnEnemyDetected(GameObject enemy)
     {
-        Enemy enemyHealth = enemy.GetComponent<Enemy>();
-        if (enemyHealth != null)
+        Enemy targetEnemy = enemy.GetComponent<Enemy>();
+        if (targetEnemy != null)
         {
-            enemyHealth.onEnemyDeath.AddListener(RemoveEnemyFromList);
+            targetEnemy.onEnemyDeath.AddListener(RemoveEnemyFromList);
         }
     }
 
@@ -65,7 +66,6 @@ public class Tower : CraftBuilding
         {
             if (enemy != null)
             {
-                // Vector2.Distance를 사용하여 X, Y 거리만 계산
                 float distanceToEnemy = Vector2.Distance(transform.position, enemy.transform.position);
 
                 if (distanceToEnemy < shortestDistance)
@@ -80,14 +80,15 @@ public class Tower : CraftBuilding
     }
 
     // 적을 공격하는 함수
+    // 무조건 맞는건데 투사체가 보였으면 좋겠음
     void Attack(GameObject enemy)
     {
-        // 적의 Health 컴포넌트를 가져와서 데미지를 줍니다.
-        Enemy enemyHealth = enemy.GetComponent<Enemy>();
+        Enemy targetEnemy = enemy.GetComponent<Enemy>();
 
-        if (enemyHealth != null)
+        if (targetEnemy != null)
         {
-            enemyHealth.TakeDamage(damage);
+            //targetEnemy.TakeDamage(damage * GetEfficiency()); // 현재 내구도 상태에 따라 데미지를 달리 줌
+            targetEnemy.TakeDamage(damage);
         }
     }
 

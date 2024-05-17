@@ -6,15 +6,15 @@ using UnityEngine.Events;
 public class Enemy : Chacter
 {
     public Transform Target;
-    public int maxHealth = 100;
-    private int currentHealth;
+    public float maxHp = 100f;
+    private float curHp;
 
     // 적이 죽었을 때 알릴 이벤트
     public UnityEvent<GameObject> onEnemyDeath;
 
     void Start()
     {
-        currentHealth = maxHealth;
+        curHp = maxHp;
     }
 
     private void Update()
@@ -25,11 +25,11 @@ public class Enemy : Chacter
         transform.Translate(-dir * 2f * Time.deltaTime);
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float _dmg)
     {
-        currentHealth -= amount;
+        curHp -= _dmg;
         StartCoroutine(DamaginEffect());
-        if (currentHealth <= 0)
+        if (curHp <= 0)
         {
             Die();
         }

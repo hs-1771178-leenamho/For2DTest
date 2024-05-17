@@ -8,6 +8,7 @@ using UnityEngine;
 public class CraftBuilding : MonoBehaviour
 {
     public BuildingInfo buildingInfo;
+    public BuildingState buildingState;
 
     public void TakeDamageOnBuilding(float _dmg) // 건물에 데미지를 입음
     {
@@ -17,4 +18,11 @@ public class CraftBuilding : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    public float GetEfficiency()
+    {
+        return this.buildingInfo.B_curHp / this.buildingInfo.B_maxHp;
+    }
+
+       
 }
